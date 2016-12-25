@@ -1,3 +1,7 @@
-﻿  Ex3.cpp
+﻿  Spring.cpp
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.h(9): warning C4305: 'initializing': truncation from 'double' to 'const GLfloat'
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(34): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(39): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
   Ex3.vcxproj -> C:\WEEiA_PROJEKTY\Semestr2_2stopien\MMwGC\Ex3\Debug\Ex3.exe
   Ex3.vcxproj -> C:\WEEiA_PROJEKTY\Semestr2_2stopien\MMwGC\Ex3\Debug\Ex3.pdb (Full PDB)
