@@ -11,38 +11,34 @@ Spring::~Spring()
 {
 }
 
-void Spring::draw() {
+void Spring::draw(GLfloat end_Y) {	
+	GLfloat start_y= 50.0f;
+	GLfloat step_y = 0.0f;
+	GLfloat u[1000], t[1000], spring_X[1000], spring_Y[1000], spring_Z[1000];
 	glEnable(GL_DEPTH);
+	glDepthFunc(GL_LEQUAL);
 	glDisable(GL_TEXTURE_2D);
-	GLfloat u[1001], t[1001], spring_X[1001], spring_Y[1001], spring_Z[1001];
-	glTranslated(0.0, 0.0, -2.0);
-	glRotatef(360.0f, 1.0f, 0.0f, 0.0f);
-	for (int i = 0; i < 1001; i++) {
-		t[i] = 0.0f; u[i] = 0.0f;
-		spring_X[i] = 0.0f; spring_Y[i] = 0.0f; spring_Z[i] = 0.0f;
+	//glTranslated(0.0, 70.0+start_Y, -10.0);
+	for (int i = 0; i < 1000; i++) {
+		t[i] = (i) * 8 * PI / (999*180);
+		u[i] = (i) * 2 * PI / (999*180);
+		spring_X[i] = cos(t[i])*(3 + cos(u[i]));
+		spring_Y[i] = sin(t[i])*(3 + cos(u[i]));
+		spring_Z[i] = 0.6*t[i] + sin(u[i]);
 	}
-	for (int j = 0; j < 10; j++) {
-		GLfloat spring_x_step = j*1.0f, spring_y_step = j*5.0f, spring_z_step = j*1.0f;
-		for (int i = 0; i < 100; i++) {
-			spring_X[i] = (cos(t[i]))*(3 + (cos(u[i])));
-			spring_Y[i] = (sin(t[i]))*(3 + (cos(u[i])));
-			spring_Z[i] = (0.6*t[i]) + (sin(u[i]));
-			
-			t[i+1] =t[i]+ STEP;
-			u[i+1] =u[i]+ STEP;
-			if (u[i] >= (2 * PI/180))
-				u[i] -= 2 * PI/180;
+	glTranslatef(0.0f, 0.0f, -5.0f);
+	for (int j = 0; j < 5; j++) {	
+		
+		glLineWidth(2.0f);
+		glBegin(GL_LINE_STRIP);
+		
+		glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+		for (int i = 0; i < 200; i++) {
+			glVertex3f(spring_X[j*200+i], spring_Y[j*200+i]*100+start_y-step_y, spring_Z[j*200+i]);
 		}
+		glEnd();
+		step_y = (j+1)*(start_y - abs(end_Y)) / 5;
 	}
-	spring_X[1000] = (cos(t[1000]))*(3 + (cos(u[1000])));
-	spring_Y[1000] = (sin(t[1000]))*(3 + (cos(u[1000])));
-	spring_Z[1000] = (0.6*t[1000]) + (sin(u[1000]));
 	
-	glBegin(GL_LINE_STRIP);
-	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-	for (int i = 0; i < 1001; i++) {
-		glVertex3f(spring_X[i], spring_Y[i]+10.0f, spring_Z[i]);
-	}	
-	glEnd();
 	
 }

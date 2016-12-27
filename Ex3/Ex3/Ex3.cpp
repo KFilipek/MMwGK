@@ -1,8 +1,9 @@
 // Ex3.cpp : Defines the entry point for the console application.
 //
 #include "stdafx.h"
-#include "Spring.h"
 #include "Sphere.h"
+#include "Spring.h"
+#include "Board.h"
 
 
 using namespace std;
@@ -10,8 +11,11 @@ GLuint texture_id;
 
 static Spring spring;
 static Sphere sphere;
+static Board board;
 
-double graphicLeft = 0.0, graphicRight = 100.0, graphicTop = 100.0, graphicBottom = -100.0, graphicNear = 2.0, graphicFar = 25.0;
+GLfloat delta_y = 0.0f, k =0.5, sphere_m = 0.02f, g = 10;
+
+double graphicLeft = 0.0, graphicRight = 100.0, graphicTop = 100.0, graphicBottom = -100.0, graphicNear = 2.0, graphicFar =20.0;
 
 GLuint load_texture(const char* filename) {
 	FIBITMAP * bitmap = NULL;
@@ -89,25 +93,46 @@ void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	sphere.set_texture(texture_id);
+	sphere.set_texture(texture_id);	
+	board.draw();
+	glPushMatrix();	
+	spring.draw(delta_y);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(0.0f, delta_y, -2.0);
 	sphere.draw();
-	spring.draw();	
+	glPopMatrix();
+	
 	glutSwapBuffers();
 }
 
 
+void timer(int =0) {
+	GLfloat f = 0;
+	if (delta_y < -8)
+		f = -k*delta_y;
+	if (delta_y >= 0)
+		f = 0;
+	f -= g*sphere_m;		
+	delta_y += f;
+	renderScene();
+	glutTimerFunc(10, timer, 5);
+}
+
 int main(int argc, char** argv)
 {	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_STEREO);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_STEREO | GLUT_DEPTH);
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);	
 	glutCreateWindow("Exercise 3");
 	initWindow(600, 600);	
-
+	
 	
 	glutReshapeFunc(resizeWindow);
 	glutDisplayFunc(renderScene);
+	timer();
+
 	
 	glutMainLoop();
     return 0;

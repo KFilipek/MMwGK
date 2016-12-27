@@ -13,6 +13,6 @@ public:
 	Spring();
 	~Spring();
 	
-	void draw();
+	void draw(GLfloat start_Y);
 };
 

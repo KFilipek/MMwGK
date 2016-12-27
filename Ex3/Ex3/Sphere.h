@@ -4,9 +4,9 @@ class Sphere
 {
 protected:
 	
-	const GLuint slices = 100, stacks = 100;	
+	const GLuint slices = 50, stacks = 50;	
 public: 
-	const GLdouble radius = 10.0f;
+	const GLdouble radius = 12.0f;
 	GLuint texture_id;
 public:
 	Sphere();
