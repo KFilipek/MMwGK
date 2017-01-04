@@ -13,9 +13,10 @@ static Spring spring;
 static Sphere sphere;
 static Board board;
 
-GLfloat delta_y = 0.0f, k =0.5, sphere_m = 0.02f, g = 10;
+GLfloat delta_y = 0.0f, k =0.04, sphere_m = 0.1f, g = 10;
+GLfloat f = 0.0f;
 
-double graphicLeft = 0.0, graphicRight = 100.0, graphicTop = 100.0, graphicBottom = -100.0, graphicNear = 2.0, graphicFar =20.0;
+double graphicLeft = 0.0, graphicRight = 100.0, graphicTop = 100.0, graphicBottom = -100.0, graphicNear = 2.0, graphicFar = 20.0;
 
 GLuint load_texture(const char* filename) {
 	FIBITMAP * bitmap = NULL;
@@ -63,7 +64,7 @@ void initWindow(int width, int height) {
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(graphicLeft, graphicRight, graphicBottom, graphicTop, graphicNear, graphicFar);
+	glOrtho(graphicLeft, graphicRight, graphicBottom, graphicTop, graphicNear, graphicFar);
 	glEnable(GL_DEPTH);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_TEXTURE_2D);
@@ -79,7 +80,7 @@ void resizeWindow( int width, int height) {
 	glViewport(0,0,width,height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(graphicLeft, graphicRight, graphicBottom, graphicTop, graphicNear, graphicFar);
+	glOrtho(graphicLeft, graphicRight, graphicBottom, graphicTop, graphicNear, graphicFar);
 	glEnable(GL_DEPTH);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_TEXTURE_2D);
@@ -93,36 +94,30 @@ void renderScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	sphere.set_texture(texture_id);	
+	sphere.set_texture(texture_id);		
+	sphere.draw(delta_y);	
 	board.draw();
-	glPushMatrix();	
-	spring.draw(delta_y);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslated(0.0f, delta_y, -2.0);
-	sphere.draw();
-	glPopMatrix();
-	
+	spring.draw(delta_y + sphere.radius);	
 	glutSwapBuffers();
 }
 
 
 void timer(int =0) {
-	GLfloat f = 0;
-	if (delta_y < -8)
-		f = -k*delta_y;
+	if (delta_y < -25)
+		f += -k*delta_y;
 	if (delta_y >= 0)
 		f = 0;
 	f -= g*sphere_m;		
 	delta_y += f;
 	renderScene();
-	glutTimerFunc(10, timer, 5);
+	glutPostRedisplay();
+	glutTimerFunc(10, timer, 1);
 }
 
 int main(int argc, char** argv)
 {	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_STEREO | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_STEREO );
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);	
 	glutCreateWindow("Exercise 3");

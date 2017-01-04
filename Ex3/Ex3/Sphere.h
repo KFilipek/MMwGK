@@ -11,7 +11,7 @@ public:
 public:
 	Sphere();
 	~Sphere();
-	void draw();
+	void draw(GLfloat start_y);
 	void set_texture(GLuint texture_id);
 	
 };

@@ -1,7 +1,9 @@
 ﻿  Spring.cpp
-c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.h(9): warning C4305: 'initializing': truncation from 'double' to 'const GLfloat'
-c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(23): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(24): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(27): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(61): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+c:\weeia_projekty\semestr2_2stopien\mmwgc\ex3\ex3\spring.cpp(64): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  Skipping... (no relevant changes detected)
+  Sphere.cpp
+  Ex3.cpp
+  Board.cpp
   Ex3.vcxproj -> C:\WEEiA_PROJEKTY\Semestr2_2stopien\MMwGC\Ex3\Debug\Ex3.exe
   Ex3.vcxproj -> C:\WEEiA_PROJEKTY\Semestr2_2stopien\MMwGC\Ex3\Debug\Ex3.pdb (Full PDB)

@@ -9,5 +9,5 @@
 #include "GL\freeglut.h"
 #include "FreeImage.h"
 
-#define PI 3.14159265
+#define PI 3.14
 
